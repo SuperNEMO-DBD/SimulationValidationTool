@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+#include "getopt_pp.h"
+
 // ROOT includes
 #include "TFile.h"
 #include "TTree.h"
@@ -24,7 +26,7 @@ void showHelp() {
 
 
 int main(int argc, char **argv) {
-
+  void ParseRootFile(std::string rootFileName, std::string refFileName);
   std::string inputFileName;
   std::string refFileName;
 
@@ -53,6 +55,8 @@ int main(int argc, char **argv) {
 
 
 void ParseRootFile(std::string rootFileName, std::string refFileName) {
+  void CompareHistogram(std::string branchName);
+
   // Check the input root file can be opened and contains a tree with the right name
   std::cout<<"Processing "<<rootFileName<<std::endl;
   TFile *rootFile;
@@ -102,8 +106,8 @@ void ParseRootFile(std::string rootFileName, std::string refFileName) {
     // Call Function
     CompareHistogram(branchName); 
   }
-  refFile.Close();
-  rootFile.Close();
+  refFile->Close();
+  rootFile->Close();
 }
 
 void CompareHistogram(std::string branchName) {
@@ -116,7 +120,7 @@ void CompareHistogram(std::string branchName) {
   if (hasValidReference) {
     bool hasReferenceBranch = reftree->GetBranchStatus(branchName.c_str());
     if (!hasReferenceBranch) {
-      cout<<"WARNING: branch "<<branchName<<" not found in reference file. No comparison statistics will be made for this branch"<<endl;
+      std::cout<<"WARNING: branch "<<branchName<<" not found in reference file. No comparison statistics will be made for this branch"<<std::endl;
       return;
     }
   }

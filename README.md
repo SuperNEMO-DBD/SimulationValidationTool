@@ -11,6 +11,10 @@ Last updated August 22 2019
 - getopt_pp.cpp
 - getopt_pp.h
 
+## Build
+Just type in a SuperNEMO environment with access to ROOT or otherwise,
+`cmake ..` in a separate build directory with source access at `..` Nothing else is required as you can see from the CMakeLists file.
+
 ## Purpose
 
 This tool takes two ROOT ntuple files, and generates statistics for comparisons between input and reference data files. Further tests are run on the statistics produced.

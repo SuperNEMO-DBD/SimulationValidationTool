@@ -6,5 +6,5 @@ find_package(ROOT REQUIRED)
 
 include_directories(. ${ROOT_INCLUDE_DIRS})
 
-add_executable(SimulationTool SimulationTool.cxx SimulationTool.h getopt_pp.cpp getopt_pp.h)
-target_link_libraries(SimulationTool ${ROOT_LIBRARIES})
+add_executable(SimulationValidationTool SimulationValidationTool.cxx getopt_pp.cpp getopt_pp.h)
+target_link_libraries(SimulationValidationTool ${ROOT_LIBRARIES})
