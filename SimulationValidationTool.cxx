@@ -146,6 +146,7 @@ void CompareHistogram(std::string branchName) {
 
   // Calculate Comparison Statistics
   double ks = h->KolmogorovTest(href); // Kolmogorov Test
+  double chi2test = h->Chi2Test(href,"UW"); // weighted Chi2 Test p-value
   
   // Input File Data
   double std = h->GetStdDev(); // Standard Deviation
@@ -175,6 +176,7 @@ void CompareHistogram(std::string branchName) {
   std::cout<<"Std: "<<std<<" ; Reference Std:"<<std_ref<<std::endl;
   std::cout<<"Std Error: "<<std_error<<" ; Reference Std Error:"<<std_error_ref<<std::endl;
   std::cout<<"Kolmogorov: "<<ks<<std::endl;
+  std::cout<<"Chi2 test: "<<chi2test<<std::endl;
   std::cout<<""<<std::endl;
   
   std::cout<<"Testing branches: "<<branchName<<std::endl;
