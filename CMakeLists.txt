@@ -3,9 +3,8 @@ project(SimulationTool)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 find_package(ROOT REQUIRED)
-find_package(Boost REQUIRED filesystem system)
 
-include_directories(${ROOT_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} include)
+include_directories(. ${ROOT_INCLUDE_DIRS})
 
-add_executable(SimulationTool SimulationTool.cxx SimulationTool.h)
-target_link_libraries(SimulationTool ${ROOT_LIBRARIES} ${Boost_LIBRARIES})
+add_executable(SimulationTool SimulationTool.cxx SimulationTool.h getopt_pp.cpp getopt_pp.h)
+target_link_libraries(SimulationTool ${ROOT_LIBRARIES})

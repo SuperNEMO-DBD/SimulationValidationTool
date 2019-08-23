@@ -1,21 +1,75 @@
-#include "SimulationTool.h"
+// Standard Library
+#include <iostream>
+#include <fstream>
+#include "boost/algorithm/string.hpp"
+#include "boost/filesystem.hpp"
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <cstdio>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <array>
+
+// ROOT includes
+#include "TFile.h"
+#include "TTree.h"
+#include "TH1.h"
+#include "TH2.h"
+#include "TCanvas.h"
+#include "TLine.h"
+#include "TText.h"
+#include "TROOT.h"
+#include "TStyle.h"
+#include "TVector3.h"
+#include "TDictionary.h"
+#include "TBranch.h"
+#include "TLegend.h"
+#include "TPaveText.h"
+#include "TLatex.h"
+#include "TF1.h"
 
 // Global variables
 bool hasConfig=true;
 bool hasValidReference = true;
 TTree *tree;
 TTree *reftree;
+std::string treeName="SimValidation";
+
+
+void showHelp() {
+  std::cout << "SimulationValidationTool command line option(s) help" << std::endl;
+  std::cout << "\t -i , --inputFileName <ROOT FILENAME>" << std::endl;
+  std::cout << "\t -r , --referenceFileName <ROOT FILENAME>" << std::endl;
+}
+
 
 int main(int argc, char **argv) {
-  if (argc != 3) {
-    std::cout<<"Usage: ./SimulationTool <data ROOT file> <reference ROOT file>"<<std::endl;
+
+  std::string inputFileName;
+  std::string refFileName;
+
+  GetOpt::GetOpt_pp ops(argc, argv);
+
+  // Check for help request
+  if (ops >> GetOpt::OptionPresent('h', "help")) {
+    showHelp();
+    return 0;
   }
   
-  string dataFileInput = argv[1];
-  string referenceFileInput = argv[2];
+  ops >> GetOpt::Option('i', "inputFile", inputFileName, "");
+  ops >> GetOpt::Option('r', "refFile", refFileName, "");
+
+  if (inputFileName.empty() || refFileName.empty()) {
+    std::cout << "Missing file name input." << std::endl;
+    showHelp();
+    return 0;
+  }
   
   // Call Function
-  ParseRootFile(dataFileInput, referenceFileInput);
+  ParseRootFile(inputFileName, refFileName);
 }
 
 
