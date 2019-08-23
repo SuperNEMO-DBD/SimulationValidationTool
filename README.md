@@ -28,7 +28,10 @@ The tool is used to :
 ## Usage
 
 After builiding the tool run the following command in the build directory to use the programme.
+
+``` console
 $ ./SimulationValidationTool -i <data ROOT file> -r <reference ROOT file to compare to>
+``` 
 
 In order to generate comparison statistics the root input and reference files should contain branches with the same names.
 The output of the tool is presented in the terminal running in. 
