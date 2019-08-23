@@ -6,32 +6,33 @@ Last updated August 22 2019
 ## Files:
 
 - CMakeLists.txt
-- SimulationTool.cxx
-- SimulationTool.h
+- README.md
+- SimulationValidationTool.cxx
+- SimulationValidationTool.h
 
 ## Purpose
 
 This tool takes two ROOT ntuple files, and generates statistics for comparisons between input and reference data files. Further tests are run on the statistics produced.
-Primary use of the tests in this tool is to detect changes in Simulation Data produced by different version of the Monte-Carlo Simulation.
+Primary use of the tests in this tool is to detect changes in Simulation Data produced by different versions of the Monte-Carlo Simulation.
 This will become useful in the future for tracking changes when the Simulation is updated. 
 
 The tool is used to :
-- Generate statistics from data in input and reference files
-- Statistics are further used in comparison test
+- Generate a comparison of data from input and reference files
+- Statistics are further used in comparison tests
 
 ## Usage
 
 After builiding the tool run the following command in the build directory to use the programme.
-$ ./SimulationTool <data ROOT file> <reference ROOT file to compare to>
+$ ./SimulationValidationTool <data ROOT file> <reference ROOT file to compare to>
 
-In order to generate comparison statistics the root input and reference files should contain branches with same names.
-The output of the tool is presented in the terminal running in. The tool generates only that statics specified in the main script.
-Some basic tests are present, that compare data from input and reference files.
+In order to generate comparison statistics the root input and reference files should contain branches with the same names.
+The output of the tool is presented in the terminal running in. 
+Some basic tests are present which compare data from input and reference files.
 
-The  statistics  generated  by  the  SimulationTool  are:  Mean,  Error  on  Mean,  Maximum  Value, Minimum  Value,  Skewness,  Standard  Deviation,  
+The  statistics  generated  by  the  SimulationValidationTool  are:  Mean,  Error  on  Mean,  Maximum  Value, Minimum  Value,  Skewness,  Standard  Deviation,  
 Error  on  Standard  Deviation,  Kolmogorov-Smirnov  Test,  P-value, Chi-squared  and  number  of  degrees of freedom.
 
-Currently,  there are 5 tests run by the SimulationTool:
+Currently,  there are 5 example tests run by the SimulationValidationTool:
 
 1. check if input data mean lies in the range of reference data mean and one standard deviation, 
 and vice versa for file order reversed;
