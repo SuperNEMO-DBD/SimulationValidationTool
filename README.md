@@ -1,4 +1,4 @@
-# SuperNEMOSimValidation
+# SuperNEMO Simulation Validation Tool
 
 Yorck Ramachers (Warwick), Bartosz Pyszkowski (Warwick)
 Last updated August 22 2019
