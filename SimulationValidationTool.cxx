@@ -12,7 +12,6 @@
 
 
 // Global variables
-bool hasValidReference = true;
 TTree *tree;
 TTree *reftree;
 std::string treeName="SimValidation";
@@ -71,6 +70,7 @@ void ParseRootFile(std::string rootFileName, std::string refFileName) {
   // Check if it found the tree
   if (tree==0) {
     std::cout<<"Error: no data in a tree named "<<treeName<<std::endl;
+    rootFile->Close();
     return;
   }
     
@@ -79,15 +79,16 @@ void ParseRootFile(std::string rootFileName, std::string refFileName) {
   refFile = new TFile(refFileName.c_str());
   if (refFile->IsZombie()) {
     std::cout << "WARNING: No valid reference ROOT file given." << std::endl;
-    hasValidReference = false;
+    return;
   }
-  
-  if (hasValidReference) {
+  else {
     reftree = (TTree*) refFile->Get(treeName.c_str());
     // Check if it found the tree
     if (reftree==0) {
       std::cout<<"WARNING: no reference data in a tree named "<<treeName<<" found in "<<refFileName<<". To generate statistics, provide a valid reference ROOT file."<<std::endl;
-      hasValidReference = false;
+      refFile->Close();
+      rootFile->Close();
+      return;
     }
   }
     
@@ -117,16 +118,14 @@ void CompareHistogram(std::string branchName) {
   std::string title="";
   
   // Check whether the reference file contains this branch
-  if (hasValidReference) {
-    bool hasReferenceBranch = reftree->GetBranchStatus(branchName.c_str());
-    if (!hasReferenceBranch) {
-      std::cout<<"WARNING: branch "<<branchName<<" not found in reference file. No comparison statistics will be made for this branch"<<std::endl;
-      return;
-    }
+  bool hasReferenceBranch = reftree->GetBranchStatus(branchName.c_str());
+  if (!hasReferenceBranch) {
+    std::cout<<"WARNING: branch "<<branchName<<" not found in reference file. No comparison statistics will be made for this branch"<<std::endl;
+    return;
   }
   
   // Create Histograms to work with from input file
-  TH1D *h = new TH1D(("plt_"+branchName).c_str(),title.c_str(),nbins,lowLimit,highLimit); // automatic limit
+  TH1D *h = new TH1D(("plt_"+branchName).c_str(),title.c_str(),nbins,lowLimit,highLimit); // automatic limits
   if ( h->GetSumw2N() == 0 ) h->Sumw2();
   tree->Draw((branchName + ">> plt_"+branchName).c_str(),"","goff");
 

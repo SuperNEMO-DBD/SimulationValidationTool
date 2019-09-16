@@ -34,11 +34,9 @@ $ ./SimulationValidationTool -i <data ROOT file> -r <reference ROOT file to comp
 ``` 
 
 In order to generate comparison statistics the root input and reference files should contain branches with the same names.
-The output of the tool is presented in the terminal running in. 
-Some basic tests are present which compare data from input and reference files.
+The output of the tool is presented in the terminal. Some basic tests are present which compare data from input and reference files.
 
-The  statistics  generated  by  the  SimulationValidationTool  are:  Mean,  Error  on  Mean,  Maximum  Value, Minimum  Value,  Skewness,  Standard  Deviation,  
-Error  on  Standard  Deviation,  Kolmogorov-Smirnov  Test.
+The  statistics  generated  by  the  SimulationValidationTool  are:  Mean,  Error  on  Mean,  Maximum  Value, Minimum  Value,  Skewness,  Standard  Deviation,  Error  on  Standard  Deviation,  Kolmogorov-Smirnov Test and the ROOT Chi2 test.
 
 Currently,  there are 4 example tests run by the SimulationValidationTool:
 
@@ -53,3 +51,5 @@ and vice versa for file order reversed;
 4. check if Maximum of input file is larger than Minimum of reference file, and vice versa for file order reversed;
 
 Note: To use this tool the branches have to be saved in a Tree titled "SimValidation".
+
+Note 2: All statistics data is output to terminal hence validation tests could either use that directly or specific tests like the four examples listed above could be made and assessed. This depends on the final testing suite which is picked to use this or a similar executable.
